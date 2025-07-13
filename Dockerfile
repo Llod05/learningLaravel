@@ -1,24 +1,34 @@
-FROM php:8.2-apache
+# Laravel alap konténer
+FROM php:8.2-cli
 
-# Függőségek
-RUN apt-get update && apt-get install -y unzip git curl libzip-dev \
-    && docker-php-ext-install zip pdo pdo_mysql
+# Rendszer csomagok telepítése
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    zip \
+    curl \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
 
-# Apache URL átírás engedélyezése
-RUN a2enmod rewrite
+# Composer telepítése
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Laravel fájlok bemásolása
-COPY . /var/www/html
+# Mappa beállítás
 WORKDIR /var/www/html
 
-# Laravel fájlok jogosultságának beállítása
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# Projekt fájlok másolása
+COPY . .
 
-# Composer telepítése és Laravel dependenciák felrakása
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && composer install --no-dev --optimize-autoloader \
-    && php artisan key:generate
+# Függőségek telepítése és .env létrehozása
+RUN cp .env.example .env && \
+    composer install --no-dev --optimize-autoloader && \
+    php artisan key:generate
 
-EXPOSE 80
-CMD ["apache2-foreground"]
+# 8000-es porton indítjuk majd a szervert
+EXPOSE 8000
+
+# Laravel szerver indítása
+CMD php artisan serve --host=0.0.0.0 --port=8000
