@@ -3,38 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Website</title>
+    <title>Rádió Projekt</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
 </head>
 <body class="h-full">
 
 <div class="min-h-full">
-    <nav class="bg-gray-800">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 items-center justify-between">
-                <div class="flex items-center">
+    <nav class="bg-[#083c1c] text-white p-1">
+        <div class="mx-auto px-8 sm:px-6 lg:px-8">
+            <div class="flex h-12 items-center justify-between">
+                <div class="flex items-center"> <!--ez a flexnek az elso gyermeke -->
                     <div class="flex-shrink-0">
-                        <img class="h-8 w-8" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+                        <a href="/">
+                            <img class="h-8 w-8" src="https://radioprojekt.netlify.app/img/favicon.svg" alt="Radio Projekt" />
+                        </a>
+                    </div>
+                    <div class="ml-8">
+                        <a href="/" >Radio Projekt</a>
                     </div>
                     <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <x-nav-link href="/" :active="request()->is('/')">
+                        <div class="ml-4 flex items-baseline space-x-4">
+                            <x-navlink href="/" :active="request()->is('/')">
                                 Home
-                            </x-nav-link>
-                            <x-nav-link href="/about" :active="request()->is('about')">
+                            </x-navlink>
+                            <x-navlink href="/about" :active="request()->is('about')">
                                 About
-                            </x-nav-link>
-                            <x-nav-link href="/contact" :active="request()->is('contact')">
+                            </x-navlink>
+                            <x-navlink href="/contact" :active="request()->is('contact')">
                                 Contact
-                            </x-nav-link>
+                            </x-navlink>
 
                         </div>
                     </div>
                 </div>
-                <div class="hidden md:block">
+                <div class="hidden md:block"><!--ez a flexnek a masodik gyermeke -->
                     <div class="ml-4 flex items-center md:ml-6">
-                        <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+                        <button type="button" class="relative rounded-full 	bg-[#0b5e34] text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                             <span class="absolute -inset-1.5"></span>
                             <span class="sr-only">View notifications</span>
                             <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
@@ -43,14 +49,8 @@
                         </button>
 
                         <!-- Profile dropdown -->
-                        <div class="relative ml-3">
-                            <div>
-                                <button type="button" class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                    <span class="absolute -inset-1.5"></span>
-                                    <span class="sr-only">Open user menu</span>
-                                    <img class="size-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                </button>
-                            </div>
+                        <div class="flex items-center relative ml-3">
+                                <x-settings-panel icon="https://www.svgrepo.com/show/247943/settings-gear.svg"/>
                         </div>
                     </div>
                 </div>
@@ -102,12 +102,12 @@
     </nav>
 
     <header class="bg-white shadow-sm">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div class="mx-auto px-4 py-6 sm:px-6 lg:px-8">
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{$heading}}</h1>
         </div>
     </header>
     <main>
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div class="mx-auto px-4 py-6 sm:px-6 lg:px-8">
             {{$slot}}
         </div>
     </main>
